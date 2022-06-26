@@ -26,12 +26,12 @@ class Freezable:
     #
     
     def _freeze(self) -> None:
-        """Freeze this object. All methods/operations that would mutate this
+        """Freeze this object. All methods/operations that could mutate this
         object are disabled."""
         self.__data.frozen = True
 
     def _unfreeze(self) -> None:
-        """Unfreeze this object. All methods/operations that would mutate this
+        """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
         self.__data.frozen = False
 
