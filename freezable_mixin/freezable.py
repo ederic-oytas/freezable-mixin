@@ -12,6 +12,11 @@ class _FreezableData:
         # True if the Freezable object is frozen; False otherwise.
 
 
+class FrozenError:
+    """Raised when an operation that could mutate a Freezable object
+    is used when that object is frozen."""
+
+
 class Freezable:
     """Freezable mixin class."""
 
