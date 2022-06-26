@@ -133,3 +133,6 @@ Pipfile
 
 # poetry.lock
 poetry.lock
+
+# VSCode
+.vscode/
