@@ -1,2 +1,3 @@
-# freezable-mixin
-Freezable mixin class in Python.
+# `freezable-mixin` - Freezability Functionality in Python
+
+TODO finish README
