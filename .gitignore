@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pipfile
+Pipfile
+
+# poetry.lock
+poetry.lock
