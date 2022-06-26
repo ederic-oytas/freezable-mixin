@@ -12,7 +12,7 @@ class _FreezableData:
         # True if the Freezable object is frozen; False otherwise.
 
 
-class FrozenError:
+class FrozenError(RuntimeError):
     """Raised when an operation that could mutate a Freezable object
     is used when that object is frozen."""
 
@@ -49,4 +49,6 @@ class Freezable:
     #
 
     def __setattr__(self, __name: str, __value: Any) -> None:
-        pass  # TODO finish
+        if self.__data.frozen:
+            raise FrozenError("cannot set attributes while object is frozen")
+        object.__setattr__(self, __name, __value)
