@@ -1,5 +1,8 @@
 
 
+from typing import Any
+
+
 class _FreezableData:
     """Holds the data for the Freezable mixin."""
 
@@ -18,6 +21,10 @@ class Freezable:
         self.__data: _FreezableData = _FreezableData()
         # Where the Freezable data is stored
     
+    #
+    # Freezing Methods
+    #
+    
     def _freeze(self) -> None:
         """Freeze this object. All methods/operations that would mutate this
         object are disabled."""
@@ -31,3 +38,10 @@ class Freezable:
     def _is_frozen(self) -> bool:
         """Check if this object is frozen."""
         return self.__data.frozen
+    
+    #
+    # Special method
+    #
+
+    def __setattr__(self, __name: str, __value: Any) -> None:
+        pass  # TODO finish
