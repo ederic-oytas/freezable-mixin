@@ -49,6 +49,8 @@ class Freezable:
     #
 
     def __setattr__(self, __name: str, __value: Any) -> None:
+        """Set an attribute of this object. Raises a FrozenError if this object is
+        frozen."""
         if self.__data.frozen:
             raise FrozenError("cannot set attributes while object is frozen")
         object.__setattr__(self, __name, __value)
