@@ -1,16 +1,20 @@
+import unittest
+
 from freezable_mixin.freezable import _FreezableData
 
 
-def test_freezable_data():
+class TestFreezableData(unittest.TestCase):
     
-    # test initialization
-    data = _FreezableData()
-    assert data.frozen is False
-    
-    # test that setting attrs is normal
-    data.frozen = True
-    assert data.frozen is True
-    data.frozen = False
-    assert data.frozen is False
-    
+    def test_freezable_data(self):
+        
+        # test initialization
+        data = _FreezableData()
+        self.assertFalse(data.frozen)
+        
+        # test that setting attrs is normal
+        data.frozen = True
+        self.assertTrue(data.frozen)
+        data.frozen = False
+        self.assertFalse(data.frozen)
+        
 
