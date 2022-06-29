@@ -1,6 +1,12 @@
+from inspect import Parameter, signature
+from functools import wraps
+from multiprocessing.sharedctypes import Value
+from typing import Any, Callable, TypeVar
 
 
-from typing import Any
+_F = TypeVar('_F', bound=Callable)
+# Type variable for a Callable. This is used instead of just Callable so that
+# the function signature can be preserved.
 
 
 class _FreezableData:
@@ -46,3 +52,37 @@ class Freezable:
     def _is_frozen(self) -> bool:
         """Check if this object is frozen."""
         return self._Freezable__data.frozen
+
+
+def disabled_when_frozen(method: _F) -> _F:
+
+    # Argument validation: check if callable and can accept at least one
+    #       positional argument.
+
+    if not callable(method):
+        raise ValueError("given 'method' argument is not callable")
+    
+    sig = signature(method)
+    if not sig.parameters:
+        raise ValueError("given 'method' argument must be able to accept one "
+                         "positional argument")
+    try:
+        sig.bind_partial(object())
+    except TypeError:
+        raise ValueError("given 'method' argument must be able to accept one "
+                         "positional argument")
+    
+    # Wrapped method
+    
+    @wraps(method)
+    def wrapped(self: Freezable, *args, **kwargs):
+        if self._Freezable__data.frozen:
+            if hasattr(method, '__name__'):
+                raise FrozenError("cannot call method '%s' while object is "
+                                  "frozen" % method.__name__)
+            else:
+                raise FrozenError("cannot call method while object is frozen")
+        return method(self, *args, **kwargs)
+
+    # Return wrapped method
+    return wrapped  # type: ignore
