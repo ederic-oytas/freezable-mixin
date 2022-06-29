@@ -23,7 +23,8 @@ class Freezable:
     def __init__(self):
         """Initialize this Freezable object."""
         
-        self._Freezable__data: _FreezableData = _FreezableData()
+        self._Freezable__data: _FreezableData
+        object.__setattr__(self, '_Freezable__data', _FreezableData())
         # Data for the Freezable mixin. This attribute is considered to be
         # private. The name is already mangled so that the type checker will
         # be okay with functions outside of the class accessing this attribute.
@@ -45,14 +46,3 @@ class Freezable:
     def _is_frozen(self) -> bool:
         """Check if this object is frozen."""
         return self._Freezable__data.frozen
-    
-    #
-    # Special method
-    #
-
-    def __setattr__(self, __name: str, __value: Any) -> None:
-        """Set an attribute of this object. Raises a FrozenError if this object is
-        frozen."""
-        if self._Freezable__data.frozen:
-            raise FrozenError("cannot set attributes while object is frozen")
-        object.__setattr__(self, __name, __value)
