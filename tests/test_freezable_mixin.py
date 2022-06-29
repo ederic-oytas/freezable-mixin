@@ -6,6 +6,7 @@ from freezable_mixin.freezable import _FreezableData, Freezable, FrozenError
 class TestFreezableData(unittest.TestCase):
     
     def test_freezable_data(self):
+        "test initialization and setting"
         
         # test initialization
         data = _FreezableData()
@@ -20,7 +21,8 @@ class TestFreezableData(unittest.TestCase):
 
 class TestFrozenError(unittest.TestCase):
     
-    def test_creation(self):
+    def test_init(self):
+        "test initialization of FrozenError"
         
         err = FrozenError()
         self.assertTupleEqual(err.args, ())
@@ -32,4 +34,28 @@ class TestFrozenError(unittest.TestCase):
         self.assertTupleEqual(err.args, ('message1', 'message2'))
 
 
+class TestFreezable(unittest.TestCase):
+    
+    def test_init(self):
+        "test initialization"
+        frz = Freezable()
+        data = frz._Freezable__data
+        
+        self.assertIsInstance(data, _FreezableData)
 
+    def test_freezing(self):
+        "test freezing methods: .freeze(), .unfreeze(), and ._is_frozen()"
+        frz = Freezable()
+        data = frz._Freezable__data
+        
+        self.assertFalse(data.frozen)
+        self.assertFalse(frz._is_frozen())
+        
+        for _ in range(5):
+            frz._freeze()
+            self.assertTrue(data.frozen)
+            self.assertTrue(frz._is_frozen())
+            
+            frz._unfreeze()
+            self.assertFalse(data.frozen)
+            self.assertFalse(frz._is_frozen())
