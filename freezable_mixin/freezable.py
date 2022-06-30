@@ -55,6 +55,9 @@ class Freezable:
 
 
 def disabled_when_frozen(method: _F) -> _F:
+    """Method decorator to throw a ``FrozenError`` if the object is frozen. The
+    class must subclass ``Freezable``.
+    """
     
     @wraps(method)
     def wrapped(self: Freezable, *args, **kwargs):
