@@ -13,6 +13,7 @@ class _FreezableData:
     """Holds the data for the Freezable mixin."""
 
     def __init__(self):
+        """Create a _FreezableData object."""
         
         self.frozen: bool = False
         # True if the Freezable object is frozen; False otherwise.
@@ -55,24 +56,6 @@ class Freezable:
 
 
 def disabled_when_frozen(method: _F) -> _F:
-
-    # Argument validation: check if callable and can accept at least one
-    #       positional argument.
-
-    if not callable(method):
-        raise ValueError("given 'method' argument is not callable")
-    
-    sig = signature(method)
-    if not sig.parameters:
-        raise ValueError("given 'method' argument must be able to accept one "
-                         "positional argument")
-    try:
-        sig.bind_partial(object())
-    except TypeError:
-        raise ValueError("given 'method' argument must be able to accept one "
-                         "positional argument")
-    
-    # Wrapped method
     
     @wraps(method)
     def wrapped(self: Freezable, *args, **kwargs):
@@ -84,5 +67,4 @@ def disabled_when_frozen(method: _F) -> _F:
                 raise FrozenError("cannot call method while object is frozen")
         return method(self, *args, **kwargs)
 
-    # Return wrapped method
     return wrapped  # type: ignore
