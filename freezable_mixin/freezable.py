@@ -32,8 +32,11 @@ class Freezable:
         self._Freezable__data: _FreezableData
         object.__setattr__(self, '_Freezable__data', _FreezableData())
         # Data for the Freezable mixin. This attribute is considered to be
-        # private. The name is already mangled so that the type checker will
-        # be okay with functions outside of the class accessing this attribute.
+        # private.
+        # The name is already mangled so that the type checker will be okay
+        # with functions outside of the class accessing this attribute.
+        # `object.__setattr__` is used instead of setting it directly in the
+        # case that __setattr__ is overridden.
     
     #
     # Freezing Methods
