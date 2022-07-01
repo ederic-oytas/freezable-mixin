@@ -57,6 +57,20 @@ class Freezable:
         return self._Freezable__data.frozen
 
 
+class FreezablePublic(Freezable):
+    """Freezable mixin class.
+    
+    This convenience class publically exposes the methods for freezing:
+    - `_freeze` as `freeze`,
+    - `_unfreeze` as `unfreeze`, and
+    - `_is_frozen` as `is_frozen`
+    """
+    freeze = Freezable._freeze
+    unfreeze = Freezable._unfreeze
+    is_frozen = Freezable._is_frozen
+    
+
+
 def disabled_when_frozen(method: _F) -> _F:
     """Instance method decorator to throw a ``FrozenError`` if the object is
     frozen. The class must subclass ``Freezable``.
