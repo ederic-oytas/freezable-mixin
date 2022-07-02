@@ -42,33 +42,19 @@ class Freezable:
     # Freezing Methods
     #
     
-    def _freeze(self) -> None:
+    def freeze(self) -> None:
         """Freeze this object. All methods/operations that could mutate this
         object are disabled."""
         self._Freezable__data.frozen = True
 
-    def _unfreeze(self) -> None:
+    def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
         self._Freezable__data.frozen = False
 
-    def _is_frozen(self) -> bool:
+    def is_frozen(self) -> bool:
         """Check if this object is frozen."""
         return self._Freezable__data.frozen
-
-
-class FreezablePublic(Freezable):
-    """Freezable mixin class.
-    
-    This convenience class publically exposes the methods for freezing:
-    - `_freeze` as `freeze`,
-    - `_unfreeze` as `unfreeze`, and
-    - `_is_frozen` as `is_frozen`
-    """
-    freeze = Freezable._freeze
-    unfreeze = Freezable._unfreeze
-    is_frozen = Freezable._is_frozen
-    
 
 
 def disabled_when_frozen(method: _F) -> _F:
