@@ -1,21 +1,11 @@
 
 from functools import wraps
-from typing import Callable, TypeVar
+from typing import Callable, Optional, TypeVar
 
 
 _F = TypeVar('_F', bound=Callable)
 # Type variable for a Callable. This is used instead of just Callable so that
 # the function signature can be preserved.
-
-
-class _FreezableData:
-    """Holds the data for the Freezable mixin."""
-
-    def __init__(self):
-        """Create a _FreezableData object."""
-        
-        self.frozen: bool = False
-        # True if the Freezable object is frozen; False otherwise.
 
 
 class FrozenError(RuntimeError):
@@ -29,14 +19,11 @@ class Freezable:
     def __init__(self):
         """Initialize this Freezable object."""
         
-        self._Freezable__data: _FreezableData
-        object.__setattr__(self, '_Freezable__data', _FreezableData())
-        # Data for the Freezable mixin. This attribute is considered to be
-        # private.
-        # The name is already mangled so that the type checker will be okay
-        # with functions outside of the class accessing this attribute.
-        # `object.__setattr__` is used instead of setting it directly in the
-        # case that __setattr__ is overridden.
+        self._Freezable__frozen: bool
+        object.__setattr__(self, '_Freezable__frozen', False)
+        # True if this Freezable is frozen; False, otherwise.
+        # This property is private. The name is pre-mangled to be consistent
+        # object.__setattr__ calls.
     
     #
     # Freezing Methods
@@ -45,16 +32,16 @@ class Freezable:
     def freeze(self) -> None:
         """Freeze this object. All methods/operations that could mutate this
         object are disabled."""
-        self._Freezable__data.frozen = True
+        object.__setattr__(self, '_Freezable__frozen', True)
 
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
-        self._Freezable__data.frozen = False
+        object.__setattr__(self, '_Freezable__frozen', True)
 
     def is_frozen(self) -> bool:
         """Check if this object is frozen."""
-        return self._Freezable__data.frozen
+        return self._Freezable__frozen
 
 
 def disabled_when_frozen(method: _F) -> _F:
