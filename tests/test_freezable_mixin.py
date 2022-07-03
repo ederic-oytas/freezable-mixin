@@ -1,6 +1,6 @@
 import unittest
 
-from freezable_mixin.freezable import Freezable, FrozenError, disabled_when_frozen
+from freezable.freezable import Freezable, FrozenError, disabled_when_frozen
 
 
 class TestFrozenError(unittest.TestCase):
