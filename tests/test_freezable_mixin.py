@@ -1,23 +1,6 @@
 import unittest
 
-from freezable_mixin.freezable import _FreezableData, Freezable, FrozenError, disabled_when_frozen
-
-
-class TestFreezableData(unittest.TestCase):
-    "test _FreezableData"
-    
-    def test_freezable_data(self):
-        "test initialization and setting"
-        
-        # test initialization
-        data = _FreezableData()
-        self.assertFalse(data.frozen)
-        
-        # test that setting attrs is normal
-        data.frozen = True
-        self.assertTrue(data.frozen)
-        data.frozen = False
-        self.assertFalse(data.frozen)
+from freezable_mixin.freezable import Freezable, FrozenError, disabled_when_frozen
 
 
 class TestFrozenError(unittest.TestCase):
@@ -42,26 +25,20 @@ class TestFreezable(unittest.TestCase):
     def test_init(self):
         "test initialization"
         frz = Freezable()
-        data = frz._Freezable__data
-        
-        self.assertIsInstance(data, _FreezableData)
+        self.assertFalse(frz._Freezable__frozen)
 
     def test_freezing(self):
         "test freezing methods: .freeze(), .unfreeze(), and ._is_frozen()"
         frz = Freezable()
-        data = frz._Freezable__data
         
-        self.assertFalse(data.frozen)
-        self.assertFalse(frz._is_frozen())
+        self.assertFalse(frz.is_frozen())
         
         for _ in range(5):
-            frz._freeze()
-            self.assertTrue(data.frozen)
-            self.assertTrue(frz._is_frozen())
+            frz.freeze()
+            self.assertTrue(frz.is_frozen())
             
-            frz._unfreeze()
-            self.assertFalse(data.frozen)
-            self.assertFalse(frz._is_frozen())
+            frz.unfreeze()
+            self.assertFalse(frz.is_frozen())
 
 
 class TestDisabledWhenFrozen(unittest.TestCase):
@@ -76,20 +53,20 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         
         frz = Sub()
         
-        self.assertFalse(frz._is_frozen())
+        self.assertFalse(frz.is_frozen())
         self.assertEqual(frz.some_method(), 10)
         
         for _ in range(5):
-            frz._freeze()
-            self.assertTrue(frz._is_frozen())
-            self.assertRaisesRegexp(
+            frz.freeze()
+            self.assertTrue(frz.is_frozen())
+            self.assertRaisesRegex(
                 FrozenError, "cannot call method 'some_method' while object is "
                             "frozen",
                 frz.some_method,
             )
             
-            frz._unfreeze()
-            self.assertFalse(frz._is_frozen())
+            frz.unfreeze()
+            self.assertFalse(frz.is_frozen())
             self.assertEqual(frz.some_method(), 10)
             
     def test_wrapping(self):
