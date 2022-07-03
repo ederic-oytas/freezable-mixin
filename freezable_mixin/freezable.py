@@ -37,7 +37,7 @@ class Freezable:
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
-        object.__setattr__(self, '_Freezable__frozen', True)
+        object.__setattr__(self, '_Freezable__frozen', False)
 
     def is_frozen(self) -> bool:
         """Check if this object is frozen."""
