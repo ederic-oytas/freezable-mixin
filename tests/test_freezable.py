@@ -59,11 +59,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         for _ in range(5):
             frz.freeze()
             self.assertTrue(frz.is_frozen())
-            self.assertRaisesRegex(
-                FrozenError, "cannot call method 'some_method' while object is "
-                            "frozen",
-                frz.some_method,
-            )
+            self.assertRaises(FrozenError, frz.some_method)
             
             frz.unfreeze()
             self.assertFalse(frz.is_frozen())
