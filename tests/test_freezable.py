@@ -106,6 +106,11 @@ class TestDisabledWhenFrozen(unittest.TestCase):
     
     def test_is_instance_of_function_type(self):
         "test if the wrapped method is an instance of the user function type"
+        # This test is required because only FunctionType objects (user-defined functions
+        # using `def`) are transformed into instance methods in Python classes.
+        # See the "Instance methods" subsection at
+        # https://docs.python.org/3.6/reference/datamodel.html#the-standard-type-hierarchy
+        # for more information.
         
         class SomeClass:
             def some_inst_method(self):
