@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import MagicMock
 
 from freezable.freezable import Freezable, FrozenError, disabled_when_frozen
 
@@ -64,6 +65,43 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             frz.unfreeze()
             self.assertFalse(frz.is_frozen())
             self.assertEqual(frz.some_method(), 10)
+    
+    def test_calling(self):
+        "test if the given method is called when unfrozen"
+        
+        class SomeFreezable(Freezable):
+            pass
+        
+        # args, kwargs, return_value
+        cases = [
+            ((Freezable(),),                {},               object()),
+            ((SomeFreezable(),),            {},               object()),
+            ((SomeFreezable(), 1, 2, 3, 4), {},               object()),
+            ((SomeFreezable(), 1, 2, 3, 4), {'a': 2, 'b': 5}, object())
+        ]
+        
+        for args, kwargs, return_value in cases:
+            m = MagicMock()
+            m.return_value = return_value
+            w = disabled_when_frozen(m)
+            self.assertEqual(w(*args, **kwargs), return_value)
+            m.assert_called_once_with(*args, **kwargs)
+        
+        class CustomError(RuntimeError):
+            pass
+        
+        cases = [
+            ((Freezable(),),                {},               CustomError),
+            ((SomeFreezable(),),            {},               CustomError),
+            ((SomeFreezable(), 1, 2, 3, 4), {},               CustomError),
+            ((SomeFreezable(), 1, 2, 3, 4), {'a': 2, 'b': 5}, CustomError),
+        ]
+        for args, kwargs, exception_type in cases:
+            m = MagicMock()
+            m.side_effect = exception_type
+            w = disabled_when_frozen(m)
+            self.assertRaises(exception_type, w, *args, **kwargs)
+            m.assert_called_once_with(*args, **kwargs)
             
     def test_wrapping(self):
         "test if the decorator correctly wraps the method"
