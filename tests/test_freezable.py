@@ -44,7 +44,7 @@ class TestFreezable(unittest.TestCase):
 class TestDisabledWhenFrozen(unittest.TestCase):
     "test disabled_when_frozen()"
     
-    def test_error_raising(self):
+    def test_disabling_when_frozen(self):
         
         class Sub(Freezable):            
             @disabled_when_frozen
