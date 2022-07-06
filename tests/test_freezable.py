@@ -99,7 +99,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         frz = SomeFreezable()
         self_arg = object()
         self.assertEqual(w(frz, self=self_arg),
-                         ((), {'self': self_arg}))
+                         ((frz, ), {'self': self_arg}))
         
         
         # Test calls expecting an error to be raised
