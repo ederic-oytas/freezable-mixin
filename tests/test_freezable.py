@@ -88,7 +88,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             self.assertEqual(w(*args, **kwargs), return_value)
             m.assert_called_once_with(*args, **kwargs)
         
-        # check if keyword asargument named 'self' is also accepted
+        # check if keyword argument named 'self' is also accepted
         
         def return_given(*args, **kwargs):
             return args, kwargs
@@ -98,6 +98,8 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         self_arg = object()
         self.assertEqual(w(frz, self=self_arg),
                          ((), {'self': self_arg}))
+        
+        
         
         class CustomError(RuntimeError):
             pass
