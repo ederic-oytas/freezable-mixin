@@ -2,7 +2,7 @@ import types
 import unittest
 from unittest.mock import MagicMock
 
-from freezable.freezable import Freezable, FrozenError, disabled_when_frozen
+from freezable import Freezable, FrozenError, disabled_when_frozen
 
 
 class TestFrozenError(unittest.TestCase):
