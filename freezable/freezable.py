@@ -58,6 +58,6 @@ def disabled_when_frozen(method: _F) -> _F:
                                   "frozen" % method.__name__)
             else:
                 raise FrozenError("cannot call method while object is frozen")
-        return method(self, *args, **kwargs)
+        return method(*args, **kwargs)
 
     return wrapped  # type: ignore
