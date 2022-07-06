@@ -1,3 +1,4 @@
+import types
 import unittest
 from unittest.mock import MagicMock
 
@@ -102,6 +103,25 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             w = disabled_when_frozen(m)
             self.assertRaises(exception_type, w, *args, **kwargs)
             m.assert_called_once_with(*args, **kwargs)
+    
+    def test_is_instance_of_function_type(self):
+        "test if the wrapped method is an instance of the user function type"
+        
+        class SomeClass:
+            def some_inst_method(self):
+                pass
+        
+        some_lambda = lambda self: None
+        
+        class SomeCallableType:
+            def __call__(self, *args, **kwargs):
+                pass
+        
+        cases = [SomeClass.some_inst_method, some_lambda, SomeCallableType()]
+        
+        for callable_ in cases:
+            w = disabled_when_frozen(callable_)
+            self.assertIsInstance(w, types.FunctionType)
             
     def test_wrapping(self):
         "test if the decorator correctly wraps the method"
