@@ -50,7 +50,8 @@ def disabled_when_frozen(method: _F) -> _F:
     """
     
     @wraps(method)
-    def wrapped(self: Freezable, *args, **kwargs):
+    def wrapped(*args, **kwargs):
+        self = args[0]
         if self._Freezable__frozen:
             if hasattr(method, '__name__'):
                 raise FrozenError("cannot call method '%s' while object is "
