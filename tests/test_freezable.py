@@ -67,7 +67,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             self.assertFalse(frz.is_frozen())
             self.assertEqual(frz.some_method(), 10)
     
-    def test_calling(self):
+    def test_calling_when_unfrozen(self):
         "test if the given method is called when unfrozen"
         
         class SomeFreezable(Freezable):
