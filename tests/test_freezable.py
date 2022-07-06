@@ -78,7 +78,8 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             ((Freezable(),),                {},               object()),
             ((SomeFreezable(),),            {},               object()),
             ((SomeFreezable(), 1, 2, 3, 4), {},               object()),
-            ((SomeFreezable(), 1, 2, 3, 4), {'a': 2, 'b': 5}, object())
+            ((SomeFreezable(), 1, 2, 3, 4), {'a': 2, 'b': 5}, object()),
+            ((SomeFreezable(), 1, 2, 3, 4), {'self': object()}, object()),
         ]
         
         for args, kwargs, return_value in cases:
