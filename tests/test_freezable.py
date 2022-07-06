@@ -79,7 +79,6 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             ((SomeFreezable(),),            {},               object()),
             ((SomeFreezable(), 1, 2, 3, 4), {},               object()),
             ((SomeFreezable(), 1, 2, 3, 4), {'a': 2, 'b': 5}, object()),
-            ((SomeFreezable(), 1, 2, 3, 4), {'self': object()}, object()),
         ]
         
         for args, kwargs, return_value in cases:
@@ -88,6 +87,17 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             w = disabled_when_frozen(m)
             self.assertEqual(w(*args, **kwargs), return_value)
             m.assert_called_once_with(*args, **kwargs)
+        
+        # check if keyword asargument named 'self' is also accepted
+        
+        def return_given(*args, **kwargs):
+            return args, kwargs
+        
+        w = disabled_when_frozen(return_given)
+        frz = SomeFreezable()
+        self_arg = object()
+        self.assertEqual(w(frz, self=self_arg),
+                         ((), {'self': self_arg}))
         
         class CustomError(RuntimeError):
             pass
