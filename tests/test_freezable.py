@@ -24,10 +24,9 @@ class TestFrozenError(unittest.TestCase):
 class TestFreezable(unittest.TestCase):
     "test Freezable"
     
-    def test_init(self):
-        "test initialization"
-        frz = Freezable()
-        self.assertFalse(frz._Freezable__frozen)
+    def test_no_init(self):
+        "test if Freezable defines no __init__"
+        self.assertIs(Freezable.__init__, object.__init__)
 
     def test_freezing(self):
         "test freezing methods: .freeze(), .unfreeze(), and ._is_frozen()"

@@ -8,6 +8,11 @@ _F = TypeVar('_F', bound=Callable)
 # the function signature can be preserved.
 
 
+class _FrozenStatus:
+    def __init__(self):
+        self.frozen: bool = False
+
+
 class FrozenError(RuntimeError):
     """Raised when an operation that could mutate a Freezable object
     is used when that object is frozen."""
@@ -15,15 +20,18 @@ class FrozenError(RuntimeError):
 
 class Freezable:
     """Freezable mixin class."""
-
-    def __init__(self):
-        """Initialize this Freezable object."""
-        
-        self._Freezable__frozen: bool
-        object.__setattr__(self, '_Freezable__frozen', False)
-        # True if this Freezable is frozen; False, otherwise.
-        # This property is private. The name is pre-mangled to be consistent
-        # object.__setattr__ calls.
+    
+    #
+    # Frozen Status
+    #
+    @property
+    def _Freezable__status(self) -> _FrozenStatus:
+        """True if this object is frozen; False otherwise. This property is
+        considered to be private; its name is pre-mangled."""
+        val = self.__dict__.get('_Freezable__status')
+        if val is None:
+            val = self.__dict__['_Freezable__status'] = _FrozenStatus()
+        return val
     
     #
     # Freezing Methods
@@ -32,16 +40,16 @@ class Freezable:
     def freeze(self) -> None:
         """Freeze this object. All methods/operations that could mutate this
         object are disabled."""
-        object.__setattr__(self, '_Freezable__frozen', True)
+        self._Freezable__status.frozen = True
 
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
-        object.__setattr__(self, '_Freezable__frozen', False)
+        self._Freezable__status.frozen = False
 
     def is_frozen(self) -> bool:
         """Check if this object is frozen."""
-        return self._Freezable__frozen
+        return self._Freezable__status.frozen
 
 
 def disabled_when_frozen(method: _F) -> _F:
@@ -52,7 +60,7 @@ def disabled_when_frozen(method: _F) -> _F:
     @wraps(method)
     def wrapped(*args, **kwargs):
         self = args[0]
-        if self._Freezable__frozen:
+        if self._Freezable__status.frozen:
             if hasattr(method, '__name__'):
                 raise FrozenError("cannot call method '%s' while object is "
                                   "frozen" % method.__name__)
