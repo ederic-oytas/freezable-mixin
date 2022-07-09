@@ -1,5 +1,8 @@
 # `freezable` - Freezable objects in Python
 
+NOTICE: This project is in Pre-alpha. Code may be unstable. API is subject to
+change.
+
 This Python package provides a mixin class to implement "freezable" objects.
 When an object is frozen, the data contained within the object is marked as
 immutable.
