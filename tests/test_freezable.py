@@ -40,7 +40,31 @@ class TestFreezable(unittest.TestCase):
             
             frz.unfreeze()
             self.assertFalse(frz.is_frozen())
-
+    
+    def test_setattr_and_delattr(self):
+        """test __setattr__ and __delattr__"""
+        frz = Freezable()
+        
+        frz.__setattr__('a', 10)
+        frz.__setattr__('a', 15)
+        frz.__setattr__('b', 20)
+        frz.__delattr__('b')
+        
+        for _ in range(5):
+        
+            frz.freeze()
+            self.assertRaises(FrozenError, frz.__setattr__, 'a', 30)
+            self.assertRaises(FrozenError, frz.__setattr__, 'b', 50)
+            self.assertRaises(FrozenError, frz.__delattr__, 'a')
+            self.assertRaises(FrozenError, frz.__delattr__, 'b')
+            self.assertRaises(FrozenError, frz.__delattr__, 'z')
+            
+            frz.unfreeze()
+            frz.__setattr__('a', 10)
+            frz.__setattr__('a', 15)
+            frz.__setattr__('b', 20)
+            frz.__delattr__('b')
+        
 
 class TestDisabledWhenFrozen(unittest.TestCase):
     "test disabled_when_frozen()"

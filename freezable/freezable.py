@@ -1,6 +1,6 @@
 
 from functools import wraps
-from typing import Callable, Optional, TypeVar
+from typing import Any, Callable, Optional, TypeVar
 
 
 _F = TypeVar('_F', bound=Callable)
@@ -47,6 +47,22 @@ class Freezable:
     def is_frozen(self) -> bool:
         """Check if this object is frozen."""
         return self._Freezable__status.frozen
+        
+    #
+    # Special methods
+    #
+    
+    def __setattr__(self, __name: str, __value: Any) -> None:
+        """Set an attribute. Raises a FrozenError if this object is frozen."""
+        if self._Freezable__status.frozen:
+            raise FrozenError('cannot set attributes while object is frozen')
+        object.__setattr__(self, __name, __value)
+    
+    def __delattr__(self, __name: str) -> None:
+        """Delete an attribute. Raises a FrozenError is this object is frozen."""
+        if self._Freezable__status.frozen:
+            raise FrozenError('cannot set attributes while object is frozen')
+        object.__delattr__(self, __name)        
 
 
 def disabled_when_frozen(method: _F) -> _F:
