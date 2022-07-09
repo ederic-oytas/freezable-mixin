@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "freezable-mixin"
+name = "freezable"
 version = "0.1.0"
-description = "A freezable mixin class in Python."
+description = "Freezable mixin class"
 authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 license = "MIT"
 
