@@ -3,7 +3,23 @@ import unittest
 from unittest.mock import MagicMock
 
 from freezable import Freezable, FrozenError, disabled_when_frozen
+from freezable.freezable import _FrozenStatus
 
+
+class TestFrozenStatus(unittest.TestCase):
+    "test _FrozenStatus"
+    
+    def test_init_and_setting(self):
+        "test that __init__ and setting attrs is normal"
+        
+        status = _FrozenStatus()
+        self.assertFalse(status.frozen)
+        
+        for _ in range(5):
+            status.frozen = True
+            self.assertTrue(status.frozen)
+            status.frozen = False
+            self.assertFalse(status.frozen)
 
 class TestFrozenError(unittest.TestCase):
     "test FrozenError"
