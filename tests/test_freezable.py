@@ -21,6 +21,7 @@ class TestFrozenStatus(unittest.TestCase):
             status.frozen = False
             self.assertFalse(status.frozen)
 
+
 class TestFrozenError(unittest.TestCase):
     "test FrozenError"
     
