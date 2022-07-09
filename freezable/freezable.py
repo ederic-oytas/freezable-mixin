@@ -9,7 +9,10 @@ _F = TypeVar('_F', bound=Callable)
 
 
 class _FrozenStatus:
+    """Data class that stores the frozen status of a Freezable object."""
+    
     def __init__(self):
+        """Create a _FrozenStatus object with a status of unfrozen."""
         self.frozen: bool = False
 
 
