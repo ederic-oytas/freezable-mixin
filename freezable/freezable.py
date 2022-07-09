@@ -28,10 +28,7 @@ class Freezable:
     def _Freezable__status(self) -> _FrozenStatus:
         """True if this object is frozen; False otherwise. This property is
         considered to be private; its name is pre-mangled."""
-        val = self.__dict__.get('_Freezable__status')
-        if val is None:
-            val = self.__dict__['_Freezable__status'] = _FrozenStatus()
-        return val
+        return self.__dict__.setdefault('_Freezable__status', _FrozenStatus())
     
     #
     # Freezing Methods
