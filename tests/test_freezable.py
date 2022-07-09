@@ -87,6 +87,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
     "test disabled_when_frozen()"
     
     def test_disabling_when_frozen(self):
+        "test disabling a method when the object is frozen"
         
         class Sub(Freezable):            
             @disabled_when_frozen
