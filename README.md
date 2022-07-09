@@ -8,7 +8,7 @@ immutable.
 
 `freezable` provides the `Freezable` mixin class for user-defined objects:
 
-```
+```python
 from freezable import Freezable
 
 class SomeFreezable(Freezable):
@@ -22,7 +22,7 @@ To freeze an freezable object, use the `freeze()` method, and to unfreeze, use
 the `unfreeze()` method. You can check if a freezable object is frozen using
 the `is_frozen()` method.
 
-```
+```python
 obj = SomeFreezable()
 
 assert not obj.is_frozen()
@@ -37,7 +37,7 @@ assert not obj.is_frozen()
 While an object is frozen, setting and deleting attributes of that object
 is disabled; these operations raise a `FrozenError`.
 
-```
+```python
 obj = SomeFreezable()
 obj.freeze()
 
@@ -48,7 +48,7 @@ del obj.attr
 
 If you don't want this behavior, you can override the special methods in the
 class body:
-```
+```python
 __setattr__ = object.__setattr__
 __delattr__ = object.__delattr__
 ```
@@ -57,7 +57,7 @@ The package also provides the `@disabled_when_frozen` instance method decorator
 which raises a `FrozenError` when the object is frozen. Make sure to only use
 this decorator in a class that subclasses `Freezable`.
 
-```
+```python
 class SomeFreezable(Freezable):
     @disabled_when_frozen
     def some_mutating_method(self):
