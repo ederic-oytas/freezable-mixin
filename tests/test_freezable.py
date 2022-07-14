@@ -8,12 +8,12 @@ from freezable import Freezable, FrozenError, disabled_when_frozen
 class TestFreezable(unittest.TestCase):
     "test Freezable"
     
-    def test_no_init(self):
+    def test_defines_no_init(self):
         "test if Freezable defines no __init__"
         self.assertIs(Freezable.__init__, object.__init__)
 
-    def test_freezing(self):
-        "test freezing methods: .freeze(), .unfreeze(), and ._is_frozen()"
+    def test_freezing_no_subsumption(self):
+        "test freezing and unfreezing with no subsuming involved"
         frz = Freezable()
         
         self.assertFalse(frz.is_frozen())
@@ -27,6 +27,7 @@ class TestFreezable(unittest.TestCase):
     
     def test_setattr_and_delattr(self):
         """test __setattr__ and __delattr__"""
+        # both methods should raise FrozenError when frozen
         frz = Freezable()
         
         frz.__setattr__('a', 10)
