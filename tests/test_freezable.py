@@ -1,29 +1,30 @@
 import types
-import unittest
 from unittest.mock import MagicMock
+
+import pytest
 
 from freezable import Freezable, FrozenError, disabled_when_frozen
 
 
-class TestFreezable(unittest.TestCase):
+class TestFreezable:
     "test Freezable"
     
     def test_defines_no_init(self):
         "test if Freezable defines no __init__"
-        self.assertIs(Freezable.__init__, object.__init__)
-
+        assert Freezable.__init__ is object.__init__
+    
     def test_freezing_no_subsumption(self):
         "test freezing and unfreezing with no subsuming involved"
         frz = Freezable()
         
-        self.assertFalse(frz.is_frozen())
+        assert not frz.is_frozen()
         
         for _ in range(5):
             frz.freeze()
-            self.assertTrue(frz.is_frozen())
+            assert frz.is_frozen()
             
             frz.unfreeze()
-            self.assertFalse(frz.is_frozen())
+            assert not frz.is_frozen()
     
     def test_setattr_and_delattr(self):
         """test __setattr__ and __delattr__"""
@@ -38,11 +39,12 @@ class TestFreezable(unittest.TestCase):
         for _ in range(5):
         
             frz.freeze()
-            self.assertRaises(FrozenError, frz.__setattr__, 'a', 30)
-            self.assertRaises(FrozenError, frz.__setattr__, 'b', 50)
-            self.assertRaises(FrozenError, frz.__delattr__, 'a')
-            self.assertRaises(FrozenError, frz.__delattr__, 'b')
-            self.assertRaises(FrozenError, frz.__delattr__, 'z')
+            
+            with pytest.raises(FrozenError): frz.__setattr__('a', 30)
+            with pytest.raises(FrozenError): frz.__setattr__('b', 50)
+            with pytest.raises(FrozenError): frz.__delattr__('a')
+            with pytest.raises(FrozenError): frz.__delattr__('b')
+            with pytest.raises(FrozenError): frz.__delattr__('z')
             
             frz.unfreeze()
             frz.__setattr__('a', 10)
@@ -51,7 +53,7 @@ class TestFreezable(unittest.TestCase):
             frz.__delattr__('b')
         
 
-class TestDisabledWhenFrozen(unittest.TestCase):
+class TestDisabledWhenFrozen:
     "test disabled_when_frozen()"
     
     def test_disabling_when_frozen(self):
@@ -64,17 +66,18 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         
         frz = Sub()
         
-        self.assertFalse(frz.is_frozen())
-        self.assertEqual(frz.some_method(), 10)
+        assert not frz.is_frozen()
+        assert frz.some_method() == 10
         
         for _ in range(5):
             frz.freeze()
-            self.assertTrue(frz.is_frozen())
-            self.assertRaises(FrozenError, frz.some_method)
+            assert frz.is_frozen()
+            with pytest.raises(FrozenError):
+                frz.some_method()
             
             frz.unfreeze()
-            self.assertFalse(frz.is_frozen())
-            self.assertEqual(frz.some_method(), 10)
+            assert not frz.is_frozen()
+            assert frz.some_method() == 10
     
     def test_calling_when_unfrozen(self):
         "test if the given method is called when unfrozen"
@@ -96,7 +99,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             m = MagicMock()
             m.return_value = return_value
             w = disabled_when_frozen(m)
-            self.assertEqual(w(*args, **kwargs), return_value)
+            assert w(*args, **kwargs) == return_value
             m.assert_called_once_with(*args, **kwargs)
         
         # Check if a keyword argument named 'self' is also accepted
@@ -107,8 +110,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         w = disabled_when_frozen(return_given)
         frz = SomeFreezable()
         self_arg = object()
-        self.assertEqual(w(frz, self=self_arg),
-                         ((frz, ), {'self': self_arg}))
+        assert w(frz, self=self_arg) == ((frz, ), {'self': self_arg})
         
         
         # Test calls expecting an error to be raised
@@ -126,7 +128,8 @@ class TestDisabledWhenFrozen(unittest.TestCase):
             m = MagicMock()
             m.side_effect = exception_type
             w = disabled_when_frozen(m)
-            self.assertRaises(exception_type, w, *args, **kwargs)
+            with pytest.raises(exception_type):
+                w(*args, **kwargs)
             m.assert_called_once_with(*args, **kwargs)
     
     def test_is_instance_of_function_type(self):
@@ -151,7 +154,7 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         
         for callable_ in cases:
             w = disabled_when_frozen(callable_)
-            self.assertIsInstance(w, types.FunctionType)
+            assert isinstance(w, types.FunctionType)
             
     def test_wrapping(self):
         "test if the decorator correctly wraps the method"
@@ -166,9 +169,14 @@ class TestDisabledWhenFrozen(unittest.TestCase):
         unwrapped.__dict__['a'] = 5
         wrapped = disabled_when_frozen(unwrapped)
         
-        self.assertEqual(wrapped.__module__,      unwrapped.__module__)
-        self.assertEqual(wrapped.__name__,        unwrapped.__name__)
-        self.assertEqual(wrapped.__qualname__,    unwrapped.__qualname__)
-        self.assertEqual(wrapped.__annotations__, unwrapped.__annotations__)
-        self.assertEqual(wrapped.__doc__,         unwrapped.__doc__)
-        self.assertDictEqual(wrapped.__dict__,    wrapped.__dict__)
+        assert wrapped.__module__      == unwrapped.__module__
+        assert wrapped.__name__        == unwrapped.__name__
+        assert wrapped.__qualname__    == unwrapped.__qualname__
+        assert wrapped.__annotations__ == unwrapped.__annotations__
+        assert wrapped.__doc__         == unwrapped.__doc__
+        
+        # wrapped.__dict__ without __wrapped__ item should equal
+        # unwrapped.__dict__
+        copy = dict(wrapped.__dict__)
+        del copy['__wrapped__']
+        assert copy                    == unwrapped.__dict__
