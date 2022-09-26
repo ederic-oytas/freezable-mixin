@@ -1,4 +1,4 @@
-# `freezable` - Freezable objects in Python
+# Freezable: Freezable objects in Python
 
 NOTICE: This project is in Alpha. Code may be unstable. API is subject to
 change.
