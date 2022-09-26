@@ -4,8 +4,8 @@ from typing import Any, Callable, Optional, TypeVar
 
 
 _F = TypeVar('_F', bound=Callable)
-# Type variable for a Callable. This is used instead of just Callable so that
-# the function signature can be preserved.
+"""Type variable for a Callable. This is used instead of just Callable so that
+the function signature can be preserved."""
 
 _object_setattr = object.__setattr__
 """Variable set to object.__setattr__"""
