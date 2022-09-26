@@ -4,6 +4,11 @@ version = "0.1.0"
 description = "Freezable mixin class"
 authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 3 - Alpha",
+]
 
 [tool.poetry.dependencies]
 python = "^3.7"
