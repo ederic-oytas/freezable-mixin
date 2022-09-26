@@ -63,8 +63,8 @@ def enabled_when_unfrozen(method: _F) -> _F:
         self = args[0]
         if self.is_frozen():
             if hasattr(method, '__name__'):
-                raise FrozenError("cannot call method '%s' while object is "
-                                  "frozen" % method.__name__)
+                raise FrozenError(f"cannot call method '{method.__name__}' "
+                                   "while object is frozen")
             else:
                 raise FrozenError("cannot call method while object is frozen")
         return method(*args, **kwargs)
