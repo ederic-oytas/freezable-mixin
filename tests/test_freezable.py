@@ -13,7 +13,7 @@ class TestFreezable:
         "test if Freezable defines no __init__"
         assert Freezable.__init__ is object.__init__
     
-    def test_freezing_no_subsumption(self):
+    def test_freezing(self):
         "test freezing and unfreezing with no subsuming involved"
         frz = Freezable()
         
