@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from freezable import Freezable, FrozenError, enabled_when_unfrozen
+from freezable.freezable import Freezable, FrozenError, enabled_when_unfrozen
 
 
 class TestFreezable:
