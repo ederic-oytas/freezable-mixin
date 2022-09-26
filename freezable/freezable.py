@@ -53,7 +53,7 @@ class Freezable:
         object.__delattr__(self, __name)        
 
 
-def disabled_when_frozen(method: _F) -> _F:
+def enabled_when_unfrozen(method: _F) -> _F:
     """Instance method decorator that raises a ``FrozenError`` if the object
     is frozen. The class must subclass ``Freezable``.
     """

@@ -56,13 +56,14 @@ __setattr__ = object.__setattr__
 __delattr__ = object.__delattr__
 ```
 
-The package also provides the `@disabled_when_frozen` instance method decorator
-which raises a `FrozenError` when the object is frozen. Make sure to only use
-this decorator in a class that subclasses `Freezable`.
+The package also provides the `@enabled_when_unfrozen` instance method
+decorator only enables a method if the object is unfrozen; when it is frozen,
+it raises a `FrozenError`. Make sure to only use this decorator in a class
+that subclasses `Freezable`.
 
 ```python
 class SomeFreezable(Freezable):
-    @disabled_when_frozen
+    @enabled_when_unfrozen
     def some_mutating_method(self):
         ...
 ```

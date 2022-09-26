@@ -1,1 +1,1 @@
-from .freezable import Freezable, FrozenError, disabled_when_frozen
+from .freezable import Freezable, FrozenError, enabled_when_unfrozen

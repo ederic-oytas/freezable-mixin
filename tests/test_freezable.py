@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from freezable import Freezable, FrozenError, disabled_when_frozen
+from freezable import Freezable, FrozenError, enabled_when_unfrozen
 
 
 class TestFreezable:
@@ -54,13 +54,13 @@ class TestFreezable:
         
 
 class TestDisabledWhenFrozen:
-    "test disabled_when_frozen()"
+    "test enabled_when_unfrozen()"
     
     def test_disabling_when_frozen(self):
         "test disabling a method when the object is frozen"
         
         class Sub(Freezable):            
-            @disabled_when_frozen
+            @enabled_when_unfrozen
             def some_method(self):
                 return 10
         
@@ -98,7 +98,7 @@ class TestDisabledWhenFrozen:
         for args, kwargs, return_value in cases:
             m = MagicMock()
             m.return_value = return_value
-            w = disabled_when_frozen(m)
+            w = enabled_when_unfrozen(m)
             assert w(*args, **kwargs) == return_value
             m.assert_called_once_with(*args, **kwargs)
         
@@ -107,7 +107,7 @@ class TestDisabledWhenFrozen:
         def return_given(*args, **kwargs):
             return args, kwargs
         
-        w = disabled_when_frozen(return_given)
+        w = enabled_when_unfrozen(return_given)
         frz = SomeFreezable()
         self_arg = object()
         assert w(frz, self=self_arg) == ((frz, ), {'self': self_arg})
@@ -127,7 +127,7 @@ class TestDisabledWhenFrozen:
         for args, kwargs, exception_type in cases:
             m = MagicMock()
             m.side_effect = exception_type
-            w = disabled_when_frozen(m)
+            w = enabled_when_unfrozen(m)
             with pytest.raises(exception_type):
                 w(*args, **kwargs)
             m.assert_called_once_with(*args, **kwargs)
@@ -153,7 +153,7 @@ class TestDisabledWhenFrozen:
         cases = [SomeClass.some_inst_method, some_lambda, SomeCallableType()]
         
         for callable_ in cases:
-            w = disabled_when_frozen(callable_)
+            w = enabled_when_unfrozen(callable_)
             assert isinstance(w, types.FunctionType)
             
     def test_wrapping(self):
@@ -167,7 +167,7 @@ class TestDisabledWhenFrozen:
         
         unwrapped = SomeClass.unwrapped
         unwrapped.__dict__['a'] = 5
-        wrapped = disabled_when_frozen(unwrapped)
+        wrapped = enabled_when_unfrozen(unwrapped)
         
         assert wrapped.__module__      == unwrapped.__module__
         assert wrapped.__name__        == unwrapped.__name__
