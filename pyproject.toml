@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Freezable mixin class"
 authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 license = "MIT"
+readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
