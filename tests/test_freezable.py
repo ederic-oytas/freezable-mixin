@@ -14,7 +14,7 @@ class TestFreezable:
         assert Freezable.__init__ is object.__init__
     
     def test_freezing(self):
-        "test freezing and unfreezing with no subsuming involved"
+        "test freezing and unfreezing"
         frz = Freezable()
         
         assert not frz.is_frozen()
