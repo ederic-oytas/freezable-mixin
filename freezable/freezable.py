@@ -54,8 +54,8 @@ class Freezable:
 
 
 def disabled_when_frozen(method: _F) -> _F:
-    """Instance method decorator to throw a ``FrozenError`` if the object is
-    frozen. The class must subclass ``Freezable``.
+    """Instance method decorator that raises a ``FrozenError`` if the object
+    is frozen. The class must subclass ``Freezable``.
     """
     
     @wraps(method)
