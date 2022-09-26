@@ -1,3 +1,5 @@
+"""Tests for freezable/freezable.py"""
+
 import types
 from unittest.mock import MagicMock
 
