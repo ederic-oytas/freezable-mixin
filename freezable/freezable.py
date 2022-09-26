@@ -16,7 +16,8 @@ class FrozenError(RuntimeError):
 class Freezable:
     """Freezable mixin class."""
     
-    _Freezable__frozen_flag: bool = False
+    __frozen: bool = False
+    """True if this object is marked as 'frozen'; false otherwise."""
     
     #
     # Freezing Methods
@@ -25,16 +26,16 @@ class Freezable:
     def freeze(self) -> None:
         """Freeze this object. All methods/operations that could mutate this
         object are disabled."""
-        object.__setattr__(self, '_Freezable__frozen_flag', True)
+        object.__setattr__(self, '_Freezable__frozen', True)
 
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
-        object.__setattr__(self, '_Freezable__frozen_flag', False)
+        object.__setattr__(self, '_Freezable__frozen', False)
 
     def is_frozen(self) -> bool:
         """Check if this object is frozen."""
-        return self._Freezable__frozen_flag
+        return self.__frozen
         
     #
     # Special methods
