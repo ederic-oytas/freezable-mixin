@@ -53,7 +53,7 @@ class TestFreezable:
             frz.__delattr__('b')
         
 
-class TestDisabledWhenFrozen:
+class TestEnabledWhenUnfrozen:
     "test enabled_when_unfrozen()"
     
     def test_disabling_when_frozen(self):
