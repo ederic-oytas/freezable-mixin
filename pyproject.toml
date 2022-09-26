@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "freezable"
-version = "0.1.0"
+version = "0.1.1"
 description = "Freezable mixin class"
 authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 license = "MIT"
