@@ -7,6 +7,9 @@ _F = TypeVar('_F', bound=Callable)
 # Type variable for a Callable. This is used instead of just Callable so that
 # the function signature can be preserved.
 
+_object_setattr = object.__setattr__
+"""Variable set to object.__setattr__"""
+
 
 class FrozenError(RuntimeError):
     """Raised when an operation that could mutate a Freezable object
@@ -26,12 +29,12 @@ class Freezable:
     def freeze(self) -> None:
         """Freeze this object. All methods/operations that could mutate this
         object are disabled."""
-        object.__setattr__(self, '_Freezable__frozen', True)
+        _object_setattr(self, '_Freezable__frozen', True)
 
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object are re-enabled."""
-        object.__setattr__(self, '_Freezable__frozen', False)
+        _object_setattr(self, '_Freezable__frozen', False)
 
     def is_frozen(self) -> bool:
         """Check if this object is frozen."""
