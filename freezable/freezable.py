@@ -8,6 +8,7 @@ _F = TypeVar('_F', bound=Callable)
 the function signature can be preserved."""
 
 _object_setattr = object.__setattr__
+_object_delattr = object.__delattr__
 
 
 class FrozenError(RuntimeError):
@@ -33,7 +34,7 @@ class Freezable:
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
         object become re-enabled."""
-        _object_setattr(self, '_Freezable__frozen', False)
+        _object_delattr(self, '_Freezable__frozen')
 
     def is_frozen(self) -> bool:
         """Check if this object is frozen.
