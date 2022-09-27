@@ -8,7 +8,6 @@ _F = TypeVar('_F', bound=Callable)
 the function signature can be preserved."""
 
 _object_setattr = object.__setattr__
-"""Variable set to object.__setattr__"""
 
 
 class FrozenError(RuntimeError):
@@ -23,7 +22,7 @@ class Freezable:
     """True if this object is marked as 'frozen'; false otherwise."""
     
     #
-    # Freezing Methods
+    # Freezing-related Methods
     #
     
     def freeze(self) -> None:
