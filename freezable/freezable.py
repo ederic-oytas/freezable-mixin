@@ -28,16 +28,20 @@ class Freezable:
     
     def freeze(self) -> None:
         """Freeze this object. All methods/operations that could mutate this
-        object are disabled."""
+        object become disabled."""
         _object_setattr(self, '_Freezable__frozen', True)
 
     def unfreeze(self) -> None:
         """Unfreeze this object. All methods/operations that could mutate this
-        object are re-enabled."""
+        object become re-enabled."""
         _object_setattr(self, '_Freezable__frozen', False)
 
     def is_frozen(self) -> bool:
-        """Check if this object is frozen."""
+        """Check if this object is frozen.
+        
+        Returns:
+            True if this object is frozen; False otherwise.
+        """
         return self.__frozen
         
     #
@@ -59,7 +63,15 @@ class Freezable:
 
 def enabled_when_unfrozen(method: _F) -> _F:
     """Instance method decorator that raises a ``FrozenError`` if the object
-    is frozen. The class must subclass ``Freezable``.
+    is frozen. The class that owns the method must subclass ``Freezable``.
+    
+    Args:
+        method: Instance method to wrap. The class that owns this method
+            must subclass ``Freezable``.
+    
+    Returns:
+        A wrapped instance method thar raises ``FrozenError`` if the object
+            is frozen.
     """
     
     @wraps(method)
