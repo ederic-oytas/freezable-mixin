@@ -12,10 +12,8 @@ Example Usage:
 ```python
 from freezable import Freezable
 
-
 class SomeFreezable(Freezable):
     ...
-    
     
 obj = SomeFreezable()
 obj.freeze()
