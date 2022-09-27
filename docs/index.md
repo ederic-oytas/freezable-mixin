@@ -1,17 +1,9 @@
-# Welcome to MkDocs
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+# Welcome to the `freezable` Documentation!
 
-## Commands
+This Python package provides a mixin class to implement "freezable" objects.
+When an object is frozen, the data contained within the object is marked as
+immutable.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+> **Notice**: These docs are a *work-in-progress*. Please check back later when
+    its completed. 
