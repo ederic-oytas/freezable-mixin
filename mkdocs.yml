@@ -29,5 +29,5 @@ plugins:
 
 nav:
   - Home: index.md
-  - Tutorials: tutorials.md
+  - User Guide: user-guide.md
   - Reference: reference.md
