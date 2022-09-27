@@ -1,1 +1,18 @@
-site_name: My Docs
+site_name: Python Freezable Docs
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: false
+            show_root_heading: true
+
+nav:
+  - Home: index.md
+  - Tutorials: tutorials.md
+  - Reference: reference.md
