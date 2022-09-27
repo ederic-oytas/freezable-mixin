@@ -1,4 +1,8 @@
 site_name: Python Freezable Docs
+repo_url: https://github.com/ederic-oytas/python-freezable
+repo_name: ederic-oytas/python-freezable
+site_description: Documentation for the `freezable` Python package.
+site_author: Ederic Oytas
 
 theme:
   name: "material"
@@ -26,6 +30,7 @@ plugins:
           options:
             show_source: false
             show_root_heading: true
+  - search
 
 nav:
   - Home: index.md
