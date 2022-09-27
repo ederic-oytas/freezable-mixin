@@ -17,7 +17,16 @@ class FrozenError(RuntimeError):
 
 
 class Freezable:
-    """Freezable mixin class."""
+    """A mixin class that allows instances to marked as "frozen" or "unfrozen."
+    
+    When an instance is "frozen," it is treated as an *immutable* object.
+    While it is frozen, all mutating operations/methods are disabled.
+    
+    This class can be used both in cases of single and multiple inheritance.
+    
+    There is no need to call `super().__init__()` when initializing instances
+    of subclasses of this class.    
+    """
     
     __frozen: bool = False
     """True if this object is marked as 'frozen'; false otherwise."""
