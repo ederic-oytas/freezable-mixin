@@ -2,9 +2,11 @@
 name = "freezable"
 version = "0.1.1"
 description = "Freezable mixin class"
-authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 license = "MIT"
+authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 readme = "README.md"
+homepage = "https://github.com/ederic-oytas/python-freezable"
+repository = "https://github.com/ederic-oytas/python-freezable"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
