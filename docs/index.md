@@ -24,3 +24,5 @@ assert obj.is_frozen()
 obj.unfreeze()
 assert not obj.is_frozen()
 ```
+
+Note: These docs are still a work-in-progress!
