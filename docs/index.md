@@ -53,7 +53,7 @@ To learn more about the package, check out the [User Guide](./user-guide.md).
 
 ## Links
 
-[Repository @GitHub][https://github.com/ederic-oytas/python-freezable]
+[Repository @ GitHub](https://github.com/ederic-oytas/python-freezable)
 
 [PyPI Link](https://pypi.org/project/freezable/)
 
