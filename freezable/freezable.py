@@ -114,6 +114,53 @@ def enabled_when_unfrozen(method: _F) -> _F:
     """Instance method decorator that raises a ``FrozenError`` if the object
     is frozen. The class that owns the method must subclass ``Freezable``.
     
+    Example: Example: Decorating a Mutating Method on a Freezable Stack
+        This is one example of using the decorator in a class. Here, the
+        decorator is used on the `push` method. This is to prevent the instance
+        from being mutated while frozen.
+        
+        ```python
+        
+        from freezable import Freezable, enabled_when_unfrozen
+        
+        class FreezableStack(Freezable):
+            
+            def __init__(self):
+                self._data = []
+            
+            @enabled_when_unfrozen
+            def push(self, x):
+                self._data.append(x)
+            
+            def top(self):
+                if not self._data:
+                    return None
+                return self._data[-1]
+        ```
+        
+        Example usage of the freezable stack:
+        ```python
+        stk = FreezableStack()
+        
+        assert stk.top() == None
+        stk.push(1)
+        assert stk.top() == 1
+        stk.push(2)
+        assert stk.top() == 2
+        
+        stk.freeze()
+        try:
+            stk.push(3)  # this raises FrozenError because stk is frozen
+        except FrozenError:
+            pass
+        
+        assert stk.top() == 2  # stack was not modified
+        stk.unfreeze()
+        
+        stk.push(3)  # now we can push an element
+        assert stk.top() == 3
+        ```
+    
     Args:
         method: Instance method to wrap. The class that owns this method
             must subclass ``Freezable``. (Note: Type `_F` is a type variable
