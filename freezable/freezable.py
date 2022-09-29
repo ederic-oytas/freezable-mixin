@@ -113,7 +113,8 @@ class Freezable:
         """Deletes an attribute.
         
         This raises a FrozenError is this object is frozen. You may override
-        this behavior in a subclass if needed."""
+        this behavior in a subclass if needed.
+        """
         if self.is_frozen():
             raise FrozenError('cannot delete attributes while object is frozen')
         object.__delattr__(self, __name)        
