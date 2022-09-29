@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "freezable"
 version = "0.1.2"
-description = "Freezable mixin class"
+description = "Dynamically immutable objects"
 license = "MIT"
 authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 readme = "README.md"
