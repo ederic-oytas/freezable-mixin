@@ -4,8 +4,7 @@
 <a href="https://badge.fury.io/py/freezable"><img src="https://badge.fury.io/py/freezable.svg" alt="PyPI version" height="18"></a>
 <a href="https://github.com/ederic-oytas/python-freezable/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ederic-oytas/python-freezable"></a>
 
-> NOTICE: This project is in Alpha; expect bugs! API is also subject to
-  change.
+> NOTICE: This project is in Alpha; you may encounter bugs.
   
 Freezable is a package that allows you to implement "freezable" types in
 Python, which can either be "frozen" or "unfrozen." When frozen, all operations
