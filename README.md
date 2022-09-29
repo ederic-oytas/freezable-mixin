@@ -77,7 +77,7 @@ You can [report a bug or suggest a feature][issues] on the Github repo.
 
 Contributions to this project are welcome. :)
 
-See the [pull requests page on Github][pulls]
+See the [pull requests page on Github][pulls].
 
 [docs]: https://python-freezable.readthedocs.io
 [pypi]: https://pypi.org/project/freezable/
