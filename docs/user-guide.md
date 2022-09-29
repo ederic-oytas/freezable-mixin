@@ -34,15 +34,16 @@ class SomeFreezable(Freezable):
 ```
 
 **You do not need to call __init__ for this class;** you only need to subclass
-it.
+it. The subclass is also allowed to inherit from other classes other than
+`Freezable` as well.
 
 ---
 
 ### `freeze`, `unfreeze`, and `is_frozen`
 
-To freeze an freezable object, use the `freeze()` method; to unfreeze, use
-the `unfreeze()` method. You can check if a freezable object is frozen using
-the `is_frozen()` method.
+A freezable instance starts off as unfrozen. To freeze a freezable object,
+use the `freeze()` method. To unfreeze, use the `unfreeze()` method. You can
+check if a freezable object is frozen using the `is_frozen()` method.
 
 ```python
 from freezable import Freezable
