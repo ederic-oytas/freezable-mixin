@@ -57,6 +57,8 @@ class TestFreezable:
     def test_docstring_stack_example(self):
         """Test the freezable stack example in the class docstring."""
         
+        ##### The example code #####
+        
         from freezable import Freezable, enabled_when_unfrozen
         
         class FreezableStack(Freezable):
@@ -91,6 +93,8 @@ class TestFreezable:
             
             def top(self):
                 return self._data[-1] if self._data else None
+        
+        ############################
 
         # Test if this works like a stack
         stk = FreezableStack()
