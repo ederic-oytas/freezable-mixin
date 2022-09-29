@@ -104,3 +104,10 @@ frz.freeze()
 assert frz.is_frozen()
 frz.some_mutating_method()  # Raises `FrozenError`
 ```
+
+## Further Reading
+
+This is the end of the user guide. For further information, use the links
+below or the links on the sidebar to the left.
+
+- Take a look at the [Reference](./reference.md).
