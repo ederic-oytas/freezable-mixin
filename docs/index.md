@@ -53,9 +53,9 @@ To learn more about the package, check out the [User Guide](./user-guide.md).
 
 ## Links
 
-[Repository @ GitHub](https://github.com/ederic-oytas/python-freezable)
+[Repository @ GitHub][repo]
 
-[PyPI Link](https://pypi.org/project/freezable/)
+[PyPI Page][pypi]
 
 ## Installation
 
@@ -66,7 +66,15 @@ pip install freezable
 
 ## Bug Reports and Feature Requests
 
-You can [report a bug or suggest a feature][1] on the Github repo.
+You can [report a bug or suggest a feature][issues] on the Github repo.
 
+## Contributions
 
-[1]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
+Contributions to this project are welcome. :)
+
+See the [pull requests page on Github][pulls].
+
+[repo]: https://github.com/ederic-oytas/python-freezable
+[pypi]: https://pypi.org/project/freezable/
+[issues]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
+[pulls]: https://github.com/ederic-oytas/python-freezable/pulls
