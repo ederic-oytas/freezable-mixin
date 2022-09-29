@@ -68,10 +68,14 @@ assert not obj.is_frozen()
 While an object is frozen, setting and deleting attributes of that object
 is disabled; these operations raise a `FrozenError` while it is frozen.
 
+<!--pytest-codeblocks:cont-->
 ```python
 obj = SomeFreezable()
 obj.freeze()
+```
 
+<!--pytest.mark.skip-->
+```python
 # Both of these operations will raise a FrozenError:
 obj.attr = 5
 del obj.attr
@@ -81,6 +85,7 @@ Note that this introduces some overhead to every attribute set and delete.
 
 If you don't want this behavior (for performance or some other reason), you can
 override the `__setattr__` and `__delattr__` methods in the class body:
+<!--pytest.mark.skip-->
 ```python
 __setattr__ = object.__setattr__
 __delattr__ = object.__delattr__
@@ -109,7 +114,7 @@ frz.some_mutating_method()  # Does not raise an error
 
 frz.freeze()
 assert frz.is_frozen()
-frz.some_mutating_method()  # Raises `FrozenError`
+#frz.some_mutating_method()  # Raises `FrozenError`
 ```
 
 ## Further Reading
