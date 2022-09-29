@@ -118,6 +118,9 @@ def enabled_when_unfrozen(method: _CallableType) -> _CallableType:
         method: Instance method to wrap. The class that owns this method
             must subclass ``Freezable``.
     
+    Raises:
+        FrozenError: When this method is called while the instace is frozen.
+    
     Returns:
         A wrapped instance method thar raises ``FrozenError`` if the object
             is frozen.
