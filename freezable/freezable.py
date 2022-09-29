@@ -25,7 +25,44 @@ class Freezable:
     This class can be used both in cases of single and multiple inheritance.
     
     There is no need to call `super().__init__()` when initializing instances
-    of subclasses of this class.    
+    of subclasses of this class.
+    
+    Example: Example: Freezable Stack
+        Here is an example of a freezable stack data structure:
+        ```python
+        from freezable import Freezable, enabled_when_unfrozen
+        
+        class FreezableStack(Freezable):
+            
+            def __init__(self):
+                self._data = []
+            
+            #
+            # Mutable operations
+            #
+            
+            # These operations are disabled using the @enabled_when_unfrozen
+            # decorator when the object is frozen because it would mutate the
+            # object.
+            
+            @enabled_when_unfrozen
+            def push(self, x):
+                self._data.append(x)
+            
+            @enabled_when_unfrozen
+            def pop(self):
+                return self._data.pop()
+            
+            #
+            # Immutable operations
+            #
+            
+            def is_empty(self):
+                return not bool(self._data)
+            
+            def peek(self):
+                return self._data[-1] if self._data else None
+        ```
     """
     
     __frozen: bool = False
