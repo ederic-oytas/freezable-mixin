@@ -54,13 +54,13 @@ assert stk.top() == 3
 This package can be useful in finding logical errors in which objects are
 mutated when they are not supposed to.
 
-See the [documentation][1] for more information on how to use this project.
+See the [documentation][docs] for more information on how to use this project.
 
 ## Links
 
-[Documentation @ReadTheDocs][1]
+[Documentation @ReadTheDocs][docs]
 
-[PyPI Link](https://pypi.org/project/freezable/)
+[PyPI Link][pypi]
 
 ## Installation
 
@@ -69,12 +69,17 @@ This package can be installed using Pip:
 pip install freezable
 ```
 
-[1]: https://python-freezable.readthedocs.io
-
-
 ## Bug Reports and Feature Requests
 
-You can [report a bug or suggest a feature][1] on the Github repo.
+You can [report a bug or suggest a feature][issues] on the Github repo.
 
+## Contributions
 
-[1]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
+Contributions to this project are welcome. :)
+
+See the [pull requests page on Github][pulls]
+
+[docs]: https://python-freezable.readthedocs.io
+[pypi]: https://pypi.org/project/freezable/
+[issues]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
+[pulls]: https://github.com/ederic-oytas/python-freezable/pulls
