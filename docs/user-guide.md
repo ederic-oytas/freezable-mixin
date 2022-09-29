@@ -127,5 +127,7 @@ below or the links on the sidebar to the left.
 - Take a look at the [Reference](./reference.md).
 - [Report a bug or suggest a feature][issues] at the Github repo.
 - See planned features in the [Roadmap](./roadmap.md).
+- Contribute with a [pull request][pulls].
 
 [issues]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
+[pulls]: https://github.com/ederic-oytas/python-freezable/pulls
