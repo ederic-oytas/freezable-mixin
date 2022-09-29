@@ -2,7 +2,7 @@
 
 
 def test_readme_and_index_example():
-    """Test the example found in docs/index.md and ./README.md"""
+    """Test the example found in docs/index.md and README.md"""
     
     ######################################
     
