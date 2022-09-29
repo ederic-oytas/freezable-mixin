@@ -95,6 +95,8 @@ decorator. This decorator only enables a method if the instance is unfrozen.
 When it is frozen, it raises a `FrozenError`.
 
 ```python
+from freezable import Freezable, enabled_when_unfrozen
+
 class SomeFreezable(Freezable):
     @enabled_when_unfrozen
     def some_mutating_method(self):
