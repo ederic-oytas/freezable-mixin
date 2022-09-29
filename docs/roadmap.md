@@ -13,6 +13,6 @@ Here is a list of features being considered:
 - Freezable collection types
 - Threading safety
 
-Want to suggest a feature? Post a [feature request][1] on the Github repo.
+Want to suggest a feature? [Post a feature request][1] on the Github repo.
 
-[1]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
+[1]: https://github.com/ederic-oytas/python-freezable/issues/new?template=feature_request.md
