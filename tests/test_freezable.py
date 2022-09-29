@@ -259,8 +259,8 @@ class TestEnabledWhenUnfrozen:
                 return self._data[-1]
         ##################
         
-        ##### Part 2 #####
         
+        ##### Part 2 #####
         stk = FreezableStack()
         
         assert stk.top() == None
@@ -279,6 +279,5 @@ class TestEnabledWhenUnfrozen:
         stk.unfreeze()
         
         stk.push(3)  # now we can push an element
-        assert stk.top() == 3
-        
+        assert stk.top() == 3        
         ##################
