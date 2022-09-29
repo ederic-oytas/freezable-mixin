@@ -120,8 +120,14 @@ class Freezable:
 
 
 def enabled_when_unfrozen(method: _F) -> _F:
-    """Instance method decorator that raises a ``FrozenError`` if the object
-    is frozen. The class that owns the method must subclass ``Freezable``.
+    """Decorates a instance method to raise an `FrozenError` if the instance
+    is frozen.
+    
+    If the decorated instance method is run while the instance is frozen, a
+    `FrozenError` raised and the inner method body is not executed.
+    
+    It is required that the class that owns the instance method subclasses
+    the `Freezable` class.
     
     Example: Example: Decorating Mutating Methods on a Freezable Stack
         This is one example of using the decorator in a class. Here, the
