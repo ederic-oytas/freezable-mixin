@@ -13,6 +13,15 @@ $ pip install freezable
 
 ## Basic Usage
 
+---
+
+This package introduces the idea of a "freezable" type; instances of such
+can be "frozen" or "unfrozen." When frozen, the freezable instance is marked
+as *immutable*. Semantically, the object and all data contained in it should
+not and must not be changed.
+
+---
+
 ### The `Freezable` Class
 
 Freezable types are implemented by subclassing the ``Freezable`` mixin class:
