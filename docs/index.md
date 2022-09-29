@@ -63,3 +63,10 @@ This package can be installed using Pip:
 ```
 pip install freezable
 ```
+
+## Bug Reports and Feature Requests
+
+You can [report a bug or suggest a feature][1] on the Github repo.
+
+
+[1]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
