@@ -40,11 +40,11 @@ assert stk.top() == 2
 stk.freeze()
 
 try:
-    stk.push(3)
+    stk.push(3)  # error because stk is frozen
 except FrozenError:
     pass
 
-assert stk.top() == 2
+assert stk.top() == 2  # operation did not proceed
 
 stk.unfreeze()
 stk.push(3)
