@@ -76,17 +76,17 @@ class Freezable:
     #
     
     def freeze(self) -> None:
-        """Freeze this object. All methods/operations that could mutate this
+        """Freezes this object. All methods/operations that could mutate this
         object become disabled."""
         _object_setattr(self, '_Freezable__frozen', True)
 
     def unfreeze(self) -> None:
-        """Unfreeze this object. All methods/operations that could mutate this
+        """Unfreezes this object. All methods/operations that could mutate this
         object become re-enabled."""
         _object_delattr(self, '_Freezable__frozen')
 
     def is_frozen(self) -> bool:
-        """Check if this object is frozen.
+        """Checks if this object is frozen.
         
         Returns:
             True if this object is frozen; False otherwise.
@@ -98,13 +98,13 @@ class Freezable:
     #
     
     def __setattr__(self, __name: str, __value: Any) -> None:
-        """Set an attribute. Raises a FrozenError if this object is frozen."""
+        """Sets an attribute. Raises a FrozenError if this object is frozen."""
         if self.is_frozen():
             raise FrozenError('cannot set attributes while object is frozen')
         object.__setattr__(self, __name, __value)
     
     def __delattr__(self, __name: str) -> None:
-        """Delete an attribute. Raises a FrozenError is this object is frozen."""
+        """Deletes an attribute. Raises a FrozenError is this object is frozen."""
         if self.is_frozen():
             raise FrozenError('cannot set attributes while object is frozen')
         object.__delattr__(self, __name)        
