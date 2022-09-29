@@ -45,6 +45,11 @@ the `unfreeze()` method. You can check if a freezable object is frozen using
 the `is_frozen()` method.
 
 ```python
+from freezable import Freezable
+
+class SomeFreezable(Freezable):
+    ...
+
 obj = SomeFreezable()
 
 assert not obj.is_frozen()
