@@ -75,8 +75,7 @@ del obj.attr
 Note that this introduces some overhead to every attribute set and delete.
 
 If you don't want this behavior (for performance or some other reason), you can
-override the `__setattr__` and `__delattr__` methods with the ones from
-`object` in the class body:
+override the `__setattr__` and `__delattr__` methods in the class body:
 ```python
 __setattr__ = object.__setattr__
 __delattr__ = object.__delattr__
@@ -104,5 +103,4 @@ frz.some_mutating_method()  # Does not raise an error
 frz.freeze()
 assert frz.is_frozen()
 frz.some_mutating_method()  # Raises `FrozenError`
-
 ```
