@@ -41,12 +41,12 @@ class Freezable:
                 self._data = []
             
             #
-            # Mutable operations
+            # Mutating methods
             #
             
-            # These operations are disabled using the @enabled_when_unfrozen
-            # decorator when the object is frozen because it would mutate the
-            # object.
+            # These methods use the @enabled_when_unfrozen decorator. This
+            # prevents the object from being mutated while the object is
+            # frozen.
             
             @enabled_when_unfrozen
             def push(self, x):
@@ -57,8 +57,10 @@ class Freezable:
                 return self._data.pop()
             
             #
-            # Immutable operations
+            # Non-mutating methods
             #
+            
+            # These methods are non-mutating and can be used any time.
             
             def is_empty(self):
                 return not bool(self._data)
