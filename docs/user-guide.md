@@ -74,7 +74,7 @@ obj = SomeFreezable()
 obj.freeze()
 ```
 
-<!--pytest.mark.skip-->
+<!--pytest.mark.skip(reason="this raises FrozenError")-->
 ```python
 # Both of these operations will raise a FrozenError:
 obj.attr = 5
@@ -85,7 +85,7 @@ Note that this introduces some overhead to every attribute set and delete.
 
 If you don't want this behavior (for performance or some other reason), you can
 override the `__setattr__` and `__delattr__` methods in the class body:
-<!--pytest.mark.skip-->
+<!--pytest.mark.skip(reason="this is to be run in a class")-->
 ```python
 __setattr__ = object.__setattr__
 __delattr__ = object.__delattr__
