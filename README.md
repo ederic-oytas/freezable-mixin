@@ -69,4 +69,4 @@ This package can be installed using Pip:
 pip install freezable
 ```
 
-[1]: https://python-freezable.readthedocs.io/en/latest/
+[1]: https://python-freezable.readthedocs.io
