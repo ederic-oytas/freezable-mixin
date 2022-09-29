@@ -123,10 +123,10 @@ def enabled_when_unfrozen(method: _F) -> _F:
     """Instance method decorator that raises a ``FrozenError`` if the object
     is frozen. The class that owns the method must subclass ``Freezable``.
     
-    Example: Example: Decorating a Mutating Method on a Freezable Stack
+    Example: Example: Decorating Mutating Methods on a Freezable Stack
         This is one example of using the decorator in a class. Here, the
-        decorator is used on the `push` method. This is to prevent the instance
-        from being mutated while frozen.
+        decorator is used on the `push` and `pop` methods. This is to
+        prevent the instance from being mutated while frozen.
         
         ```python
         
@@ -140,6 +140,10 @@ def enabled_when_unfrozen(method: _F) -> _F:
             @enabled_when_unfrozen
             def push(self, x):
                 self._data.append(x)
+            
+            @enabled_when_unfrozen
+            def pop(self):
+                return self._data.pop()
             
             def top(self):
                 if not self._data:
