@@ -60,7 +60,7 @@ See the [documentation][docs] for more information on how to use this project.
 
 [Documentation @ReadTheDocs][docs]
 
-[PyPI Link][pypi]
+[PyPI Page][pypi]
 
 ## Installation
 
