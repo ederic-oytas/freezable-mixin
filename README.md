@@ -1,4 +1,4 @@
-# Freezable: Dynamic Immutability
+# Freezable: Dynamically Immutable Objects
 
 > NOTICE: This project is in Alpha; expect bugs! API is also subject to
   change.
