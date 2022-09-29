@@ -1,3 +1,9 @@
+<a href="https://badge.fury.io/py/freezable"><img src="https://badge.fury.io/py/freezable.svg" alt="PyPI version" height="18"></a>
+<a href='https://python-freezable.readthedocs.io/en/latest/?badge=latest'>
+    <img src='https://readthedocs.org/projects/python-freezable/badge/?version=latest' alt='Documentation Status' />
+</a>
+<a href="https://github.com/ederic-oytas/python-freezable/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ederic-oytas/python-freezable"></a>
+
 # Freezable: Dynamically Immutable Objects
 
 > NOTICE: This project is in Alpha; expect bugs! API is also subject to
