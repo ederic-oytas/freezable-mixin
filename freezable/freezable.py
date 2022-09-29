@@ -6,7 +6,7 @@ from functools import wraps
 from typing import Any, Callable, Optional, TypeVar
 
 
-_CallableType = TypeVar('_CallableType', bound=Callable)
+_F = TypeVar('_F', bound=Callable)
 """Type variable for a Callable. This is used instead of just Callable so that
 the function signature can be preserved."""
 
@@ -110,20 +110,22 @@ class Freezable:
         object.__delattr__(self, __name)        
 
 
-def enabled_when_unfrozen(method: _CallableType) -> _CallableType:
+def enabled_when_unfrozen(method: _F) -> _F:
     """Instance method decorator that raises a ``FrozenError`` if the object
     is frozen. The class that owns the method must subclass ``Freezable``.
     
     Args:
         method: Instance method to wrap. The class that owns this method
-            must subclass ``Freezable``.
+            must subclass ``Freezable``. (Note: Type `_F` is a type variable
+            that is bounded by `Callable`.)
     
     Raises:
         FrozenError: When this method is called while the instace is frozen.
     
     Returns:
         A wrapped instance method thar raises ``FrozenError`` if the object
-            is frozen.
+            is frozen. (Note: Type `_F` is a type variable that is bounded by
+            `Callable`.)
     """
     
     @wraps(method)
