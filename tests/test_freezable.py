@@ -259,6 +259,10 @@ class TestEnabledWhenUnfrozen:
             def push(self, x):
                 self._data.append(x)
             
+            @enabled_when_unfrozen
+            def pop(self):
+                return self._data.pop()
+            
             def top(self):
                 if not self._data:
                     return None
