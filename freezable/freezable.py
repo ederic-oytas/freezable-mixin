@@ -63,7 +63,7 @@ class Freezable:
             def is_empty(self):
                 return not bool(self._data)
             
-            def peek(self):
+            def top(self):
                 return self._data[-1] if self._data else None
         ```
     """
