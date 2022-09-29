@@ -98,13 +98,20 @@ class Freezable:
     #
     
     def __setattr__(self, __name: str, __value: Any) -> None:
-        """Sets an attribute. Raises a FrozenError if this object is frozen."""
+        """Sets an attribute.
+        
+        This raises a FrozenError if this object is frozen. You may override
+        this behavior in a subclass if needed.
+        """
         if self.is_frozen():
             raise FrozenError('cannot set attributes while object is frozen')
         object.__setattr__(self, __name, __value)
     
     def __delattr__(self, __name: str) -> None:
-        """Deletes an attribute. Raises a FrozenError is this object is frozen."""
+        """Deletes an attribute.
+        
+        This raises a FrozenError is this object is frozen. You may override
+        this behavior in a subclass if needed."""
         if self.is_frozen():
             raise FrozenError('cannot set attributes while object is frozen')
         object.__delattr__(self, __name)        
