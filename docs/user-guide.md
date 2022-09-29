@@ -117,6 +117,8 @@ assert frz.is_frozen()
 #frz.some_mutating_method()  # Raises `FrozenError`
 ```
 
+---
+
 ## Further Reading
 
 This is the end of the user guide. For further information, use the links
