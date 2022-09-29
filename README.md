@@ -1,36 +1,66 @@
-# Freezable: Freezable objects in Python
+# Freezable: Dynamic Immutability
 
 > NOTICE: This project is in Alpha; expect bugs! API is also subject to
   change.
   
 Freezable is a package that allows you to implement "freezable" types in
-Python. When an object is "frozen," it is marked as "immutable," and data
-contained within the object cannot be changed.
+Python, which can either be "frozen" or "unfrozen." When frozen, all operations
+and methods that mutate the object are disabled.
 
-Example Usage:
+Here is one example:
 ```python
-from freezable import Freezable
+from freezable import Freezable, FrozenError, enabled_when_unfrozen
 
-
-class SomeFreezable(Freezable):
-    ...
+class FreezableStack(Freezable):
     
+    def __init__(self):
+        self._data = []
     
-obj = SomeFreezable()
-obj.freeze()
-assert obj.is_frozen()
+    @enabled_when_unfrozen
+    def push(self, x):
+        self._data.append(x)
 
-obj.unfreeze()
-assert not obj.is_frozen()
+    def top(self):
+        return self._data[-1] if self._data else None
+
+stk = FreezableStack()
+assert stk.top() is None
+
+stk.push(1)
+assert stk.top() == 1
+stk.push(2)
+assert stk.top() == 2
+
+stk.freeze()
+
+try:
+    stk.push(3)
+except FrozenError:
+    pass
+
+assert stk.top() == 2
+
+stk.unfreeze()
+stk.push(3)
+assert stk.top() == 3
 ```
 
-## Documentation
+This package can be useful in finding logical errors in which objects are
+mutated when they are not supposed to.
 
-[Documentation Link](https://python-freezable.readthedocs.io/en/latest/)
+See the [documentation][1] for more information on how to use this project.
 
+## Links
+
+[Documentation @ReadTheDocs][1]
+
+[PyPI Link](https://pypi.org/project/freezable/)
 
 ## Installation
 
+This package can be installed using Pip:
 ```
 pip install freezable
 ```
+
+[1]: https://python-freezable.readthedocs.io/en/latest/
