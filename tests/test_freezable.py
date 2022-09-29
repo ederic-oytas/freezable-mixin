@@ -53,7 +53,62 @@ class TestFreezable:
             frz.__setattr__('a', 15)
             frz.__setattr__('b', 20)
             frz.__delattr__('b')
+    
+    def test_docstring_stack_example(self):
+        """Test the freezable stack example in the class docstring."""
         
+        from freezable import Freezable, enabled_when_unfrozen
+        
+        class FreezableStack(Freezable):
+            
+            def __init__(self):
+                self._data = []
+            
+            #
+            # Mutable operations
+            #
+            
+            # These operations are disabled using the @enabled_when_unfrozen
+            # decorator when the object is frozen because it would mutate the
+            # object.
+            
+            @enabled_when_unfrozen
+            def push(self, x):
+                self._data.append(x)
+            
+            @enabled_when_unfrozen
+            def pop(self):
+                return self._data.pop()
+            
+            #
+            # Immutable operations
+            #
+            
+            def is_empty(self):
+                return not bool(self._data)
+            
+            def top(self):
+                return self._data[-1] if self._data else None
+
+        # Test if this works like a stack
+        stk = FreezableStack()
+        assert stk.top() is None
+        assert stk.is_empty()
+        
+        stk.push(1)
+        assert stk.top() == 1
+        assert not stk.is_empty()
+        stk.push(2)
+        assert stk.top() == 2
+        
+        r = stk.pop()
+        assert r == 2
+        assert stk.top() == 1
+        
+        r = stk.pop()
+        assert r == 1
+        assert stk.is_empty()
+
 
 class TestEnabledWhenUnfrozen:
     "test enabled_when_unfrozen()"
