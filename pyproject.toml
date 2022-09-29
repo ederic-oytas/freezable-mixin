@@ -7,6 +7,12 @@ authors = ["Ederic Oytas <edericoytas@gmail.com>"]
 readme = "README.md"
 homepage = "https://github.com/ederic-oytas/python-freezable"
 repository = "https://github.com/ederic-oytas/python-freezable"
+keywords = [
+    "freeze",
+    "freezable",
+    "immutability",
+    "objects",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
