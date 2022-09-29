@@ -1,6 +1,9 @@
 
 # `freezable`: Freezable types in Python
 
+<a href="https://badge.fury.io/py/freezable"><img src="https://badge.fury.io/py/freezable.svg" alt="PyPI version" height="18"></a>
+<a href="https://github.com/ederic-oytas/python-freezable/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/ederic-oytas/python-freezable"></a>
+
 > NOTICE: This project is in Alpha; expect bugs! API is also subject to
   change.
   
