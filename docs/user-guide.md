@@ -125,3 +125,7 @@ This is the end of the user guide. For further information, use the links
 below or the links on the sidebar to the left.
 
 - Take a look at the [Reference](./reference.md).
+- [Report a bug or suggest a feature][issues] at the Github repo.
+- See planned features in the [Roadmap](./roadmap.md).
+
+[issues]: https://github.com/ederic-oytas/python-freezable/issues/new/choose
