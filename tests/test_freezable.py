@@ -237,3 +237,48 @@ class TestEnabledWhenUnfrozen:
         copy = dict(wrapped.__dict__)
         del copy['__wrapped__']
         assert copy                    == unwrapped.__dict__
+
+    def test_docstring_example(self):
+        """test the example found in the docstring"""
+        
+        ##### Part 1 #####
+        from freezable import Freezable, enabled_when_unfrozen
+        
+        class FreezableStack(Freezable):
+            
+            def __init__(self):
+                self._data = []
+            
+            @enabled_when_unfrozen
+            def push(self, x):
+                self._data.append(x)
+            
+            def top(self):
+                if not self._data:
+                    return None
+                return self._data[-1]
+        ##################
+        
+        ##### Part 2 #####
+        
+        stk = FreezableStack()
+        
+        assert stk.top() == None
+        stk.push(1)
+        assert stk.top() == 1
+        stk.push(2)
+        assert stk.top() == 2
+        
+        stk.freeze()
+        try:
+            stk.push(3)  # this raises FrozenError because stk is frozen
+        except FrozenError:
+            pass
+        
+        assert stk.top() == 2  # stack was not modified
+        stk.unfreeze()
+        
+        stk.push(3)  # now we can push an element
+        assert stk.top() == 3
+        
+        ##################
