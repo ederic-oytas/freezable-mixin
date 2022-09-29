@@ -1,3 +1,6 @@
+"""
+Module for the Freezable class and related functions and classes.
+"""
 
 from functools import wraps
 from typing import Any, Callable, Optional, TypeVar
