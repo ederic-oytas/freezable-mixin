@@ -136,3 +136,6 @@ poetry.lock
 
 # VSCode
 .vscode/
+
+# Personal notes
+notes.txt
