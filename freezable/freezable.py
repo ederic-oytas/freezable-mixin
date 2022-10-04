@@ -22,13 +22,23 @@ class FrozenError(RuntimeError):
 class Freezable:
     """A mixin class that allows instances to marked as "frozen" or "unfrozen."
     
-    When an instance is "frozen," it is treated as an *immutable* object.
-    While it is frozen, all mutating operations/methods are disabled.
+    When an instance is "frozen," it is treated as an *immutable* object; all
+    mutating operations/methods are disabled.
+    
+    By default, this class disables setting and deleting attributes to help
+    preserve the frozen guarantee. Note that this adds some overhead to each
+    set and delete. To remove this behavior (for performance or some other
+    reason), override the `__setattr__` and `__delattr__` methods with the ones
+    from `object`:
+    ```python
+    __setattr__ = object.__setattr__
+    __delattr__ = object.__delattr__
+    ```
     
     This class can be used both in cases of single and multiple inheritance.
     
-    There is no need to call `super().__init__()` when initializing instances
-    of subclasses of this class.
+    There is no need to call `super().__init__()` in the subclass's `__init__`
+    method. You can call it, but it will not do anything.
     
     Example: Example: Freezable Stack
         Here is an example of a freezable stack data structure:
@@ -144,6 +154,14 @@ def enabled_when_unfrozen(method: _F) -> _F:
             def __init__(self):
                 self._data = []
             
+            #
+            # Mutating methods
+            #
+            
+            # These methods use the @enabled_when_unfrozen decorator. This
+            # prevents the object from being mutated while the object is
+            # frozen.
+            
             @enabled_when_unfrozen
             def push(self, x):
                 self._data.append(x)
@@ -152,10 +170,17 @@ def enabled_when_unfrozen(method: _F) -> _F:
             def pop(self):
                 return self._data.pop()
             
+            #
+            # Non-mutating methods
+            #
+            
+            # These methods are non-mutating and can be used any time.
+            
+            def is_empty(self):
+                return not bool(self._data)
+            
             def top(self):
-                if not self._data:
-                    return None
-                return self._data[-1]
+                return self._data[-1] if self._data else None
         ```
         
         Example usage of the freezable stack:
