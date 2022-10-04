@@ -13,12 +13,9 @@ $ pip install freezable
 
 ## Basic Usage
 
----
-
 This package introduces the idea of a "freezable" type; instances of such
 can be "frozen" or "unfrozen." When frozen, the freezable instance is marked
-as *immutable*. Semantically, the object and all data contained in it should
-not and must not be changed.
+as *immutable*. Semantically, the object should not and must not be changed.
 
 ---
 
@@ -82,7 +79,9 @@ obj.attr = 5
 del obj.attr
 ```
 
-Note that this introduces some overhead to every attribute set and delete.
+This behavior helps ensure the guarantee that the object remains immutable
+while it is frozen. Note that this introduces some overhead to every attribute
+set and delete.
 
 If you don't want this behavior (for performance or some other reason), you can
 override the `__setattr__` and `__delattr__` methods in the class body:
@@ -96,9 +95,13 @@ __delattr__ = object.__delattr__
 
 ### `@enabled_when_unfrozen`
 
-The package also provides the `@enabled_when_unfrozen` instance method
-decorator. This decorator only enables a method if the instance is unfrozen.
-When it is frozen, it raises a `FrozenError`.
+Your class may have methods that mutate the instance itself. If any of
+these mutating methods are called while the object is frozen, they may succeed
+and break the frozen guarantee of the class.
+
+For mutating methods, the package provides the `@enabled_when_unfrozen` instance
+method decorator. This decorator enables a method only if the instance is
+unfrozen. When it is frozen, it raises a `FrozenError`.
 
 ```python
 from freezable import Freezable, enabled_when_unfrozen
@@ -111,11 +114,11 @@ class SomeFreezable(Freezable):
 frz = SomeFreezable()
 
 assert not frz.is_frozen()
-frz.some_mutating_method()  # Does not raise an error
+frz.some_mutating_method()  # Does not raise an error when instance is unfrozen
 
 frz.freeze()
 assert frz.is_frozen()
-#frz.some_mutating_method()  # Raises `FrozenError`
+#frz.some_mutating_method()  # Raises `FrozenError` because instance is frozen
 ```
 
 ---

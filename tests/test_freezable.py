@@ -255,6 +255,14 @@ class TestEnabledWhenUnfrozen:
             def __init__(self):
                 self._data = []
             
+            #
+            # Mutating methods
+            #
+            
+            # These methods use the @enabled_when_unfrozen decorator. This
+            # prevents the object from being mutated while the object is
+            # frozen.
+            
             @enabled_when_unfrozen
             def push(self, x):
                 self._data.append(x)
@@ -263,10 +271,17 @@ class TestEnabledWhenUnfrozen:
             def pop(self):
                 return self._data.pop()
             
+            #
+            # Non-mutating methods
+            #
+            
+            # These methods are non-mutating and can be used any time.
+            
+            def is_empty(self):
+                return not bool(self._data)
+            
             def top(self):
-                if not self._data:
-                    return None
-                return self._data[-1]
+                return self._data[-1] if self._data else None
         ##################
         
         
