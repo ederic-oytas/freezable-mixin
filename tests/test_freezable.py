@@ -22,9 +22,22 @@ class TestFreezable:
         assert not frz.is_frozen()
         
         for _ in range(5):
+
+            # Test single calls
             frz.freeze()
             assert frz.is_frozen()
             
+            frz.unfreeze()
+            assert not frz.is_frozen()
+
+            # Test multiple calls in a row
+            frz.freeze()
+            frz.freeze()
+            frz.freeze()
+            assert frz.is_frozen()
+            
+            frz.unfreeze()
+            frz.unfreeze()
             frz.unfreeze()
             assert not frz.is_frozen()
     
