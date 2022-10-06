@@ -21,7 +21,7 @@ as *immutable*. Semantically, the object should not and must not be changed.
 
 ### The `Freezable` Class
 
-Freezable types are implemented by subclassing the ``Freezable`` mixin class:
+Freezable types are implemented by subclassing the ``Freezable`` class:
 
 ```python
 from freezable import Freezable
