@@ -19,7 +19,7 @@ class FrozenError(RuntimeError):
 
 
 class Freezable:
-    """A mixin class that allows instances to marked as "frozen" or "unfrozen."
+    """A class that allows instances to marked as "frozen" or "unfrozen."
     
     When an instance is "frozen," it is treated as an *immutable* object; all
     mutating operations/methods are disabled.
@@ -130,8 +130,8 @@ class Freezable:
 
 
 def enabled_when_unfrozen(method: _F) -> _F:
-    """Decorates a instance method to raise an `FrozenError` if the instance
-    is frozen.
+    """Decorates a instance method to raise an FrozenError if
+    the instance is frozen.
     
     If the decorated instance method is run while the instance is frozen, a
     `FrozenError` raised and the inner method body is not executed.
@@ -204,19 +204,6 @@ def enabled_when_unfrozen(method: _F) -> _F:
         stk.push(3)  # now we can push an element
         assert stk.top() == 3
         ```
-    
-    Args:
-        method: Instance method to wrap. The class that owns this method
-            must subclass ``Freezable``. (Note: Type `_F` is a type variable
-            that is bounded by `Callable`.)
-    
-    Raises:
-        FrozenError: When this method is called while the instace is frozen.
-    
-    Returns:
-        A wrapped instance method thar raises ``FrozenError`` if the object
-            is frozen. (Note: Type `_F` is a type variable that is bounded by
-            `Callable`.)
     """
     
     @wraps(method)
