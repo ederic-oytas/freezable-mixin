@@ -3,7 +3,7 @@ Module for the Freezable class and related functions and classes.
 """
 
 from functools import wraps
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 
 _object_setattr = object.__setattr__
