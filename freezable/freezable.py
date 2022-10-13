@@ -3,12 +3,8 @@ Module for the Freezable class and related functions and classes.
 """
 
 from functools import wraps
-from typing import Any, Callable, Optional, TypeVar
+from typing import Any, Callable
 
-
-_F = TypeVar('_F', bound=Callable)
-"""Type variable for a Callable. This is used instead of just Callable so that
-the function signature can be preserved."""
 
 _object_setattr = object.__setattr__
 
@@ -129,7 +125,7 @@ class Freezable:
         object.__delattr__(self, __name)        
 
 
-def enabled_when_unfrozen(method: _F) -> _F:
+def enabled_when_unfrozen(method: Callable):
     """Decorates a instance method to raise an FrozenError if
     the instance is frozen.
     
@@ -217,4 +213,4 @@ def enabled_when_unfrozen(method: _F) -> _F:
                 raise FrozenError("cannot call method while object is frozen")
         return method(*args, **kwargs)
 
-    return wrapped  # type: ignore
+    return wrapped
