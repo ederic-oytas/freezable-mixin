@@ -1,6 +1,8 @@
 
 # Changelog
 
+Here is the changelog for the package starting from version 0.1.9:
+
 ## 0.1.9
 
 - Corrected the type signature of the `enabled_when_frozen` decorator. The new
