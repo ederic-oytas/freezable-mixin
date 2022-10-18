@@ -159,6 +159,35 @@ class TestEnabledWhenUnfrozen:
             assert not frz.is_frozen()
             assert frz.some_method() == 10
 
+    def test_disabling_when_frozen_with_non_user_method(self):
+        "test disabling a non user method type"
+
+        class SomeCallable:
+            def __call__(self, inst):
+                return 10
+
+        some_callable = SomeCallable()
+
+        assert not hasattr(some_callable, "__name__")
+
+        class Sub(Freezable):
+            some_method = enabled_when_unfrozen(SomeCallable())
+
+        frz = Sub()
+
+        assert not frz.is_frozen()
+        assert frz.some_method() == 10
+
+        for _ in range(5):
+            frz.freeze()
+            assert frz.is_frozen()
+            with pytest.raises(FrozenError):
+                frz.some_method()
+
+            frz.unfreeze()
+            assert not frz.is_frozen()
+            assert frz.some_method() == 10
+
     def test_calling_when_unfrozen(self):
         "test if the given method is called when unfrozen"
 
