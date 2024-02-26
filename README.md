@@ -7,9 +7,6 @@
 # Freezable: Dynamically Immutable Objects
 
 > NOTICE: This project is in Alpha; you may encounter bugs.
-
-> Note: In Github, the "Used By" section falsely shows
-> dependent repos that do not actually use the project.
   
 Freezable is a package that allows you to implement "freezable" types in
 Python, which can either be "frozen" or "unfrozen." When frozen, all operations
